@@ -4,14 +4,31 @@
 </head>
 
 <body>
-  <h1>----- JQR CDN TEST - 3 ------</h1>
-  <button id="btn_1">click Here - 3</button>
+  <h1>----- Location Test ------</h1>
+  <p id="para_1">Your location will be displayed here</p>
+  <button id="btn_1">Find your location</button>
 
   <script>
     $(document).ready(function(){
       $('#btn_1').click(function(){
-        alert("Button clicked - 1");
+        if(navigator.geolocation)
+        {
+          navigator.geolocation.getCurrentPosition(dispPosition);
+        }
+        else
+        {
+          $('#para_1').html("Location NOT available");
+        }
       });
+
+      function dispPosition(position)
+      {
+        $('#para_1').html("Inside dispPosition()");
+        var latitude  = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var msg = "Your latitude = " + latitude + " & longitude = " + longitude;
+        $('#para_1').html(msg);
+      }
     });
   </script>
 </body>
